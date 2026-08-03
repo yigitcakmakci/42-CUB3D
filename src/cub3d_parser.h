@@ -1,5 +1,5 @@
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_PARSER_H
+# define CUB3D_PARSER_H
 
 # include <stdlib.h>
 # include <unistd.h>
