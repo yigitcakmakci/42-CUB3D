@@ -2,21 +2,41 @@
 #define CUB3D_H
 
 #include "mlx.h"
+#include "cub3d_parser.h"
+
+typedef struct s_player
+{
+    double  pos_x;
+    double  pos_y;
+    double  dir_x;
+    double  dir_y;
+    double  angle;
+} t_player;
+
+typedef struct s_window
+{
+    int height;
+    int width;
+    int fov;
+} t_window;
+
+typedef struct s_configuration
+{
+    void        *mlx;
+    void        *win;
+    void        *img;
+    char        *addr;
+    int         bpp;
+    int         line_len;
+    int         endian;
+} t_configuration;
 
 typedef struct s_game
 {
-    void    *mlx;
-    void    *win;
-    void    *img;
-    char    *addr;
-    int     bpp;
-    int     line_len;
-    int     endian;
-    int     map[10][10]; // Geçici statik harita
-    double  pos_x;       // Oyuncunun X konumu
-    double  pos_y;       // Oyuncunun Y konumu
-    double  dir_x;       // Oyuncunun bakış yönü (X vektörü)
-    double  dir_y;       // Oyuncunun bakış yönü (Y vektörü)
+    t_window        window;
+    t_configuration conf;
+    t_player        player;
+    t_data          data;
 }   t_game;
 
 #endif

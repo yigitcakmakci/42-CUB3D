@@ -1,7 +1,7 @@
 NAME        = cub3D
 
 CC          = cc
-CFLAGS      = -Wall -Wextra -Werror
+CFLAGS      = -Wall -Wextra -Werror -D_GNU_SOURCE
 
 SRC_DIR     = src
 MLX_DIR     = include/minilibx-linux
