@@ -8,6 +8,7 @@ MLX_DIR     = include/minilibx-linux
 LIBFT_DIR   = include/libft
 
 SRCS        = $(SRC_DIR)/main.c \
+			  $(SRC_DIR)/render.c \
               $(SRC_DIR)/n1.c \
               $(SRC_DIR)/n2.c \
               $(SRC_DIR)/n3.c \

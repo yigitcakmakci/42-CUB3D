@@ -1,6 +1,12 @@
 #include "cub3d.h"
 #include "cub3d_parser.h"
+#include "cub3d_raycasting.h"
 #include <stdio.h>
+
+#define KEY_W 119
+#define KEY_A 97
+#define KEY_S 115
+#define KEY_D 100
 
 void init_dummy_map(t_game *game)
 {
@@ -73,20 +79,72 @@ static int run_parser_mode(char *path)
     return (0);
 }
 
+int key_hook(int keycode, t_game *game)
+{
+    if (keycode == KEY_A)
+    {
+        game->pos_x--;
+    }
+    if (keycode == KEY_W)
+    {
+        game->pos_y--;
+    }
+    if (keycode == KEY_S)
+    {
+        game->pos_y++;
+    }
+    if (keycode == KEY_D)
+    {
+        game->pos_x++;
+    }
+
+    
+    return (0);
+}
+
 static int run_raycaster_demo(void)
 {
     t_game game;
 
-    game.pos_x = 5.5;
-    game.pos_y = 5.5;
+    game.pos_x = 1.0;
+    game.pos_y = 1.0;
     game.dir_x = 1.0;
-    game.dir_y = 0.0;
+    game.dir_y = 1.0;
 
     init_dummy_map(&game);
     game.mlx = mlx_init();
+    if (game.mlx == NULL)
+    {
+        printf("MLX could not be started");
+        return (0);
+    }
+    
     if (!game.mlx)
         return (1);
     game.win = mlx_new_window(game.mlx, 800, 600, "cub3D - Raycaster Test");
+    if (game.win == NULL)
+    {
+        printf("Could not initialize the mlx window.");
+        return (0);
+    }
+    game.img = mlx_new_image(game.mlx, 800, 600);
+    if (game.img == NULL)
+    {
+        printf("Could not initialize the mlx image.");
+        return (0);
+    }
+    game.addr = mlx_get_data_addr(game.img, &game.bpp, &game.line_len, &game.endian);
+    if (game.addr == NULL)
+    {
+        printf("Could not initialize the mlx addr.");
+        return (0);
+    }
+    if (mlx_loop_hook(game.mlx, render_frame, &game) == 0)
+    {
+        printf("mlx_loop_hook is broke.");
+        return (0);
+    }
+    mlx_hook(game.win, 2, 1L<<0, key_hook, &game);
     if (!game.win)
         return (1);
     mlx_loop(game.mlx);

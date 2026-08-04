@@ -7,6 +7,11 @@ typedef struct s_game
 {
     void    *mlx;
     void    *win;
+    void    *img;
+    char    *addr;
+    int     bpp;
+    int     line_len;
+    int     endian;
     int     map[10][10]; // Geçici statik harita
     double  pos_x;       // Oyuncunun X konumu
     double  pos_y;       // Oyuncunun Y konumu
