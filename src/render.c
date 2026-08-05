@@ -29,20 +29,25 @@ static void draw_rect(t_game *game, int x, int y, int w, int h, int color)
     }
 }
 
-void    draw_background(t_game *game, int ceiling_color, int floor_color)
+static  int rgb_to_hex(int *rgb)
+{
+    return ((rgb[0] << 16) | (rgb[1] << 8) | rgb[2]);
+}
+
+static void    draw_background(t_game *game)
 {
     for (int i = 0; i < game->window.width; i++)
     {
-        for (int j = 0; j < 300; j++)
+        for (int j = 0; j < (game->window.height/2); j++)
         {
-            put_pixel(game, i, j, floor_color);
+            put_pixel(game, i, j, rgb_to_hex(game->data.ceiling));
         }
     }
     for (int i = 0; i < game->window.width; i++)
     {
-        for (int j = 300; j < game->window.height; j++)
+        for (int j = (game->window.height / 2); j < game->window.height; j++)
         {
-            put_pixel(game, i, j, ceiling_color);
+            put_pixel(game, i, j, rgb_to_hex(game->data.floor));
         }
     }
 
@@ -57,50 +62,121 @@ void    draw_wall(t_game *game, int wall_color, int distance)
     draw_rect(game, xStart, yStart, width, height, wall_color);
 }
 
+// KURULUM: ray'in yönüne göre adım yönünü ve ilk sınır mesafelerini hesapla
+static void init_dda(t_game *game, t_ray *ray,
+        double *side_dist, int *step)
+{
+    double  delta_x;
+    double  delta_y;
+
+    ray->map_x = (int)game->player.pos_x;          // hangi hücredeyim?
+    ray->map_y = (int)game->player.pos_y;
+    delta_x = fabs(1.0 / ray->dir_x);              // x'te 1 hücre = bu kadar ışın yolu
+    delta_y = fabs(1.0 / ray->dir_y);
+    if (ray->dir_x < 0)                            // sola gidiyorsak
+    {
+        step[0] = -1;
+        side_dist[0] = (game->player.pos_x - ray->map_x) * delta_x;
+    }
+    else                                           // sağa gidiyorsak
+    {
+        step[0] = 1;
+        side_dist[0] = (ray->map_x + 1.0 - game->player.pos_x) * delta_x;
+    }
+    if (ray->dir_y < 0)                            // yukarı gidiyorsak
+    {
+        step[1] = -1;
+        side_dist[1] = (game->player.pos_y - ray->map_y) * delta_y;
+    }
+    else                                           // aşağı gidiyorsak
+    {
+        step[1] = 1;
+        side_dist[1] = (ray->map_y + 1.0 - game->player.pos_y) * delta_y;
+    }
+}
+
+// DÖNGÜ: duvar bulana kadar hücreden hücreye zıpla
+static void run_dda(t_game *game, t_ray *ray)
+{
+    double  side_dist[2];
+    double  delta[2];
+    int     step[2];
+
+    init_dda(game, ray, side_dist, step);
+    delta[0] = fabs(1.0 / ray->dir_x);
+    delta[1] = fabs(1.0 / ray->dir_y);
+    while (1)
+    {
+        if (side_dist[0] < side_dist[1])           // dikey çizgi daha yakın
+        {
+            side_dist[0] += delta[0];
+            ray->map_x += step[0];
+            ray->side = 0;
+        }
+        else                                       // yatay çizgi daha yakın
+        {
+            side_dist[1] += delta[1];
+            ray->map_y += step[1];
+            ray->side = 1;
+        }
+        if (ray->map_x < 0 || ray->map_x >= game->data.map_width
+            || ray->map_y < 0 || ray->map_y >= game->data.map_height)
+            break ;                                // harita dışı: güvenlik
+        if (game->data.map[ray->map_y][ray->map_x] == '1')
+            break ;                                // duvar bulundu
+    }
+    // side_dist zaten bir delta fazla ilerlemiş durumda, geri al:
+    if (ray->side == 0)
+        ray->perp_dist = side_dist[0] - delta[0];
+    else
+        ray->perp_dist = side_dist[1] - delta[1];
+}
+
+// Bir ekran sütununa duvar dilimini çiz
+static void draw_column(t_game *game, int x, t_ray *ray, int color)
+{
+    int wall_height;
+    int top;
+    int bottom;
+    int y;
+
+    if (ray->perp_dist < 0.01)
+        ray->perp_dist = 0.01;
+    wall_height = (int)(game->window.height / ray->perp_dist);
+    top = (game->window.height - wall_height) / 2;
+    if (top < 0)
+        top = 0;
+    bottom = (game->window.height + wall_height) / 2;
+    if (bottom > game->window.height)
+        bottom = game->window.height;
+    if (ray->side == 1)                            // yatay duvarları koyulaştır (derinlik hissi)
+        color = (color >> 1) & 0x7F7F7F;
+    y = top;
+        y = top;
+    while (y < bottom)
+    {
+        put_pixel(game, x, y, color);
+        y++;
+    }
+}
+
 void    draw_walls(t_game *game, int wall_color)
 {
-    int x = 0;
+    t_ray   ray;
+    int     x;
+    double  camera_x;
+    double  half_fov;
+
+    half_fov = tan((game->window.fov / 2.0) * (M_PI / 180.0));
+    x = 0;
     while (x < game->window.width)
     {
-        float half_fov_rad = (game->window.fov / 2.0) * (M_PI / 180.0);
-
-        // Eski sabit değer yerine bu yeni dinamik değişkeni kullan
-        float angle = game->player.angle + atan(((float)(x - (game->window.width / 2)) / (float)(game->window.width / 2)) * tan(half_fov_rad));
-        float ray_dx = cos(angle);
-        float ray_dy = sin(angle);
-        float distance = 0;
-        float step = 0.01;
-        float ray_x = game->player.pos_x;
-        float ray_y = game->player.pos_y;
-        while (distance < 100)  // Max mesafe
-        {
-            ray_x += ray_dx * step;
-            ray_y += ray_dy * step;
-            distance += step;
-            
-            // Harita sınırları kontrol et
-            if ((int)ray_x < 0 || (int)ray_x >= game->data.map_width ||
-                (int)ray_y < 0 || (int)ray_y >= game->data.map_height)
-                break;
-            
-            // Duvara çarptı mı?
-            if (game->data.map[(int)ray_y][(int)ray_x] == '1')
-                break;
-        }
-        
-        float perp_distance = distance * cos(angle - game->player.angle);
-        if (perp_distance < 0.1) perp_distance = 0.1; 
-
-        int wall_height = (int)(game->window.height / perp_distance);
-        
-        // Duvarı çiz (dikey çizgi olarak)
-        int top = (game->window.height - wall_height) / 2;
-        if (top < 0) top = 0;
-        int bottom = (game->window.height + wall_height) / 2;
-        if (bottom > game->window.height) bottom = game->window.height;
-        
-        for (int y = top; y < bottom; y++)
-                put_pixel(game, x, y, wall_color);
+        // ekran sütununu -1..+1 aralığına çevir
+        camera_x = 2.0 * x / (double)game->window.width - 1.0;
+        ray.dir_x = game->player.dir_x - game->player.dir_y * camera_x * half_fov;
+        ray.dir_y = game->player.dir_y + game->player.dir_x * camera_x * half_fov;
+        run_dda(game, &ray);
+        draw_column(game, x, &ray, wall_color);
         x++;
     }
 }
@@ -166,7 +242,7 @@ void    draw_map(t_game *game)
 
 int render_frame(t_game *game)
 {
-    draw_background(game, 0x00FF0000, 0x0000FF00);
+    draw_background(game);
     draw_walls(game, 0x000000FF);
     draw_map(game);
     mlx_put_image_to_window(game->conf.mlx,game->conf.win,game->conf.img, 0, 0);

@@ -15,6 +15,7 @@ SRCS        = $(SRC_DIR)/main.c \
               $(SRC_DIR)/n4.c \
               $(SRC_DIR)/n5.c \
               $(SRC_DIR)/zget_next_line.c \
+			  $(SRC_DIR)/free_game.c \
               $(wildcard $(LIBFT_DIR)/*.c)
 OBJS        = $(SRCS:.c=.o)
 

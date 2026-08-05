@@ -11,11 +11,15 @@ typedef struct s_pos
 
 typedef struct s_ray
 {
-    t_pos pos;
+    double  dir_x;      // ray yönü
+    double  dir_y;
+    int     map_x;      // şu an bakılan hücre
+    int     map_y;
+    double  perp_dist;  // duvara dik mesafe (fish-eye düzeltilmiş)
+    int     side;       // 0 = dikey çizgiye çarptı, 1 = yatay çizgiye
 }   t_ray;
 
 void    put_pixel(t_game *game, int x, int y, int color);
-void    draw_background(t_game *game, int ceiling_color, int floor_color);
 void    draw_walls(t_game *game, int wall_color);
 int     render_frame(t_game *game);
 

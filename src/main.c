@@ -12,6 +12,7 @@
 #define KEY_LEFT 0xFF51
 #define KEY_RIGHT 0xFF53
 #define KEY_DOWN 65364
+#define KEY_ESC 65307
 
 /*static void print_map(t_data *data)
 {
@@ -64,39 +65,84 @@ void init_player_from_data(t_game *game)
     game->player.dir_y = sin(game->player.angle);
 }
 
+static int close_game(t_game *game)
+{
+    free_game(game);
+    exit(0);
+}
+
+static int is_wall(t_game *game, double x, double y)
+{
+    int map_x;
+    int map_y;
+
+    map_x = (int)x;
+    map_y = (int)y;
+    if (map_x < 0 || map_y < 0
+        || map_y >= game->data.map_height
+        || map_x >= game->data.map_width)
+        return (1);
+    return (game->data.map[map_y][map_x] == '1');
+}
+
+static void move_player(t_game *game, double move_x, double move_y)
+{
+    double new_x;
+    double new_y;
+    double margin;
+
+    margin = 0.15;
+
+    new_x = game->player.pos_x + move_x;
+    new_y = game->player.pos_y + move_y;
+
+    if (!is_wall(game, new_x + margin, game->player.pos_y)
+        && !is_wall(game, new_x - margin, game->player.pos_y)
+        && !is_wall(game, new_x, game->player.pos_y + margin)
+        && !is_wall(game, new_x, game->player.pos_y - margin))
+        game->player.pos_x = new_x;
+
+    if (!is_wall(game, game->player.pos_x + margin, new_y)
+        && !is_wall(game, game->player.pos_x - margin, new_y)
+        && !is_wall(game, game->player.pos_x, new_y + margin)
+        && !is_wall(game, game->player.pos_x, new_y - margin))
+        game->player.pos_y = new_y;
+}
+
 int key_hook(int keycode, t_game *game)
 {
-    if (keycode == KEY_A)
-    {
-        game->player.pos_x -= game->player.dir_y * 0.1;   // sola dik
-        game->player.pos_y += game->player.dir_x * 0.1;
-    }
+    double speed = 0.1;
     if (keycode == KEY_W)
     {
-        game->player.pos_x += game->player.dir_x * 0.1;
-        game->player.pos_y += game->player.dir_y * 0.1;
+        move_player(game, game->player.dir_x * speed, game->player.dir_y * speed);
+    }
+    if (keycode == KEY_A)
+    {
+        move_player(game, -game->player.dir_x * speed, game->player.dir_y * speed);
     }
     if (keycode == KEY_S)
     {
-        game->player.pos_x -= game->player.dir_x * 0.1;
-        game->player.pos_y -= game->player.dir_y * 0.1;
+        move_player(game, -game->player.dir_x * speed, -game->player.dir_y * speed);
     }
     if (keycode == KEY_D)
     {
-        game->player.pos_x += game->player.dir_x * 0.1;
-        game->player.pos_y -= game->player.dir_y * 0.1;
-    }
-        if (keycode == KEY_LEFT)
-    {
-        game->player.angle -= 0.05;
-        game->player.dir_x = cos(game->player.angle);
-        game->player.dir_y = sin(game->player.angle);
+        move_player(game, game->player.dir_x * speed, -game->player.dir_y * speed);
     }
     if (keycode == KEY_RIGHT)
     {
         game->player.angle += 0.05;
         game->player.dir_x = cos(game->player.angle);
         game->player.dir_y = sin(game->player.angle);
+    }
+    if (keycode == KEY_LEFT)
+    {
+        game->player.angle -= 0.05;
+        game->player.dir_x = cos(game->player.angle);
+        game->player.dir_y = sin(game->player.angle);
+    }
+    if (keycode == KEY_ESC)
+    {
+        close_game(game);
     }
 
     
@@ -141,7 +187,16 @@ static int run_raycaster_demo(t_game *game)
         printf("mlx_loop_hook is broke.");
         return (0);
     }
-    mlx_hook(game->conf.win, 2, 1L<<0, key_hook, game);
+    if (mlx_hook(game->conf.win, 2, 1L<<0, key_hook, game) == 0)
+    {
+        printf("mlx_hook is broke.");
+        return (0);
+    }
+    if (mlx_hook(game->conf.win, 17, 0, close_game, game) == 0)
+    {
+        printf("Program is not close true\n");
+        return (0);
+    }   // 17 = DestroyNotify
     if (!game->conf.win)
         return (1);
     mlx_loop(game->conf.mlx);
@@ -165,6 +220,6 @@ int main(int argc, char **argv)
     }
     init_player_from_data(&game);
     run_raycaster_demo(&game);
-    
-    return(1);
+    free_game(&game);
+    return(0);
 }

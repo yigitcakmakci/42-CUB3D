@@ -51,17 +51,4 @@ int	check_extension(char *file, char *ext)
 	return (!ft_strncmp(file + len_file - len_ext, ext, len_ext));
 }
 
-void	free_map(char **map)
-{
-	int	i;
 
-	if (!map)
-		return ;
-	i = 0;
-	while (map[i])
-	{
-		free(map[i]);
-		i++;
-	}
-	free(map);
-}

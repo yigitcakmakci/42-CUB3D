@@ -33,10 +33,12 @@ typedef struct s_configuration
 
 typedef struct s_game
 {
+    t_data          data;
     t_window        window;
     t_configuration conf;
     t_player        player;
-    t_data          data;
 }   t_game;
+
+int free_game(t_game *game);
 
 #endif
