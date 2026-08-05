@@ -89,6 +89,7 @@ static int	validate_flood(t_data *data)
 		copy[i] = ft_strdup(data->map[i]);
 		if (!copy[i])
 		{
+			copy[i] = NULL;
 			free_map(copy);
 			return (1);
 		}
