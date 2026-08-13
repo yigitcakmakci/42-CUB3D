@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   zget_next_line.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alozpola <alozpola@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 19:43:58 by alozpola          #+#    #+#             */
-/*   Updated: 2026/08/13 18:03:56 by alozpola         ###   ########.fr       */
+/*   Updated: 2026/08/13 23:22:07 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,18 @@ static char	*read_buffer(int fd, char *left_str, char *buff)
 {
 	ssize_t	rd_bytes;
 
+	buff = malloc(BUFFER_SIZE + 1);
+	if (!buff)
+		return (NULL);
+	if (!left_str)
+		left_str = ft_strdup("");
 	rd_bytes = 1;
-	while (!ft_strchr(left_str, '\n') && rd_bytes > 0)
+	while (left_str && !ft_strchr(left_str, '\n') && rd_bytes > 0)
 	{
 		rd_bytes = read(fd, buff, BUFFER_SIZE);
 		if (rd_bytes < 0)
 		{
+			free(buff);
 			free(left_str);
 			return (NULL);
 		}

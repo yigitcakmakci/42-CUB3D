@@ -1,104 +1,120 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/13 21:36:51 by ycakmakc          #+#    #+#             */
+/*   Updated: 2026/08/13 22:56:55 by ycakmakc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 #include "cub3d_parser.h"
+#include "cub3d_raycasting.h"
+#include "mlx.h"
 #include <stdio.h>
 
-void init_dummy_map(t_game *game)
+static int	init_mlx_window(t_game *game)
 {
-    int dummy[10][10] = {
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 1, 1, 0, 0, 0, 0, 0, 1},
-        {1, 0, 1, 0, 0, 0, 1, 1, 0, 1},
-        {1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
-        {1, 0, 1, 1, 1, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 1, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-    };
-
-    for (int y = 0; y < 10; y++)
-    {
-        for (int x = 0; x < 10; x++)
-            game->map[y][x] = dummy[y][x];
-    }
+	game->window.fov = 77;
+	game->window.height = 1080;
+	game->window.width = 1920;
+	game->conf.mlx = mlx_init();
+	if (!game->conf.mlx)
+	{
+		printf("MLX could not be started\n");
+		return (0);
+	}
+	game->conf.win = mlx_new_window(game->conf.mlx, game->window.width,
+			game->window.height, "cub3D");
+	if (!game->conf.win)
+	{
+		printf("Could not initialize the mlx window.\n");
+		return (0);
+	}
+	return (1);
 }
 
-static void print_map(t_data *data)
+static int	init_mlx_graphics(t_game *game)
 {
-    int i;
-
-    printf("Map (%d x %d):\n", data->map_width, data->map_height);
-    i = 0;
-    while (i < data->map_height)
-    {
-        printf("%s\n", data->map[i]);
-        i++;
-    }
+	game->conf.img = mlx_new_image(game->conf.mlx, game->window.width,
+			game->window.height);
+	if (!game->conf.img)
+	{
+		printf("Could not initialize the mlx image.\n");
+		return (0);
+	}
+	if (init_texture(game) == 0)
+	{
+		printf("Could not initalize the texture\n");
+		return (0);
+	}
+	game->conf.addr = mlx_get_data_addr(game->conf.img, &game->conf.bpp,
+			&game->conf.line_len, &game->conf.endian);
+	if (!game->conf.addr)
+	{
+		printf("Could not initialize the mlx addr.\n");
+		return (0);
+	}
+	return (1);
 }
 
-static void print_data(t_data *data)
+static int	setup_mlx_hooks(t_game *game)
 {
-    printf("NO: %s\n", data->no);
-    printf("SO: %s\n", data->so);
-    printf("WE: %s\n", data->we);
-    printf("EA: %s\n", data->ea);
-
-    printf("Floor   : %d,%d,%d\n",
-        data->floor[0], data->floor[1], data->floor[2]);
-    printf("Ceiling : %d,%d,%d\n",
-        data->ceiling[0], data->ceiling[1], data->ceiling[2]);
-
-    printf("Player : (%d, %d) %c\n",
-        data->player_x,
-        data->player_y,
-        data->player_dir);
-
-    print_map(data);
+	if (mlx_loop_hook(game->conf.mlx, render_frame, game) == 0)
+	{
+		printf("mlx_loop_hook is broke.\n");
+		return (0);
+	}
+	if (mlx_hook(game->conf.win, 2, 1L << 0, key_press, game) == 0)
+	{
+		printf("mlx_hook(key_press) is broke.\n");
+		return (0);
+	}
+	if (mlx_hook(game->conf.win, 3, 1L << 1, key_release, game) == 0)
+	{
+		printf("mlx_hook(key_release) is broke.\n");
+		return (0);
+	}
+	if (mlx_hook(game->conf.win, 17, 0, close_game, game) == 0)
+	{
+		printf("Program is not close true\n");
+		return (0);
+	}
+	return (1);
 }
 
-static int run_parser_mode(char *path)
+static int	run_raycaster(t_game *game)
 {
-    t_data data;
-
-    ft_memset(&data, 0, sizeof(t_data));
-    if (parse_file(path, &data))
-    {
-        printf("Error\n");
-        return (1);
-    }
-    printf("Parsing successful!\n\n");
-    print_data(&data);
-    free_data(&data);
-    return (0);
+	if (!init_mlx_window(game))
+		return (0);
+	if (!init_mlx_graphics(game))
+		return (0);
+	if (!setup_mlx_hooks(game))
+		return (0);
+	mlx_loop(game->conf.mlx);
+	return (0);
 }
 
-static int run_raycaster_demo(void)
+int	main(int argc, char **argv)
 {
-    t_game game;
+	t_game	game;
 
-    game.pos_x = 5.5;
-    game.pos_y = 5.5;
-    game.dir_x = 1.0;
-    game.dir_y = 0.0;
-
-    init_dummy_map(&game);
-    game.mlx = mlx_init();
-    if (!game.mlx)
-        return (1);
-    game.win = mlx_new_window(game.mlx, 800, 600, "cub3D - Raycaster Test");
-    if (!game.win)
-        return (1);
-    mlx_loop(game.mlx);
-    return (0);
-}
-
-int main(int argc, char **argv)
-{
-    if (argc == 2)
-        return (run_parser_mode(argv[1]));
-    if (argc == 1)
-        return (run_raycaster_demo());
-    printf("Usage: %s [map.cub]\n", argv[0]);
-    return (1);
+	if (argc != 2)
+	{
+		printf("WRONG ARG COUNT\n");
+		return (0);
+	}
+	ft_memset(&game, 0, sizeof(t_game));
+	if (parse_file(argv[1], &game.data))
+	{
+		printf("Error\n");
+		return (1);
+	}
+	init_player_from_data(&game);
+	run_raycaster(&game);
+	free_game(&game);
+	return (0);
 }

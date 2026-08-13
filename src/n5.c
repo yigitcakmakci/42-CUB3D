@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   n5.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alozpola <alozpola@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/13 17:40:20 by alozpola          #+#    #+#             */
-/*   Updated: 2026/08/13 17:40:21 by alozpola         ###   ########.fr       */
+/*   Updated: 2026/08/13 23:22:07 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ static int	validate_flood(t_data *data)
 		copy[i] = ft_strdup(data->map[i]);
 		if (!copy[i])
 		{
+			copy[i] = NULL;
 			free_map(copy);
 			return (1);
 		}

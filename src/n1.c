@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   n1.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alozpola <alozpola@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/13 17:36:19 by alozpola          #+#    #+#             */
-/*   Updated: 2026/08/13 17:36:20 by alozpola         ###   ########.fr       */
+/*   Updated: 2026/08/13 23:22:07 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,4 @@ int	check_extension(char *file, char *ext)
 	if (len_file <= len_ext)
 		return (0);
 	return (!ft_strncmp(file + len_file - len_ext, ext, len_ext));
-}
-
-void	free_map(char **map)
-{
-	int	i;
-
-	if (!map)
-		return ;
-	i = 0;
-	while (map[i])
-	{
-		free(map[i]);
-		i++;
-	}
-	free(map);
 }
