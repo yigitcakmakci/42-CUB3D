@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   zget_next_line.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycakmakc <ycakmakc@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 19:43:58 by alozpola          #+#    #+#             */
-/*   Updated: 2026/08/06 21:20:51 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/13 20:16:27 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

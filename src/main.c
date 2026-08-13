@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycakmakc <ycakmakc@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 16:32:22 by alozpola          #+#    #+#             */
-/*   Updated: 2026/08/06 21:47:07 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/13 20:40:49 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@
 #define KEY_A 97
 #define KEY_S 115
 #define KEY_D 100
-#define KEY_UP 0xFF52
 #define KEY_LEFT 0xFF51
 #define KEY_RIGHT 0xFF53
-#define KEY_DOWN 65364
 #define KEY_ESC 65307
 
 void	init_player_from_data(t_game *game)

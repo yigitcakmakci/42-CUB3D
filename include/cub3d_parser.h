@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_parser.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycakmakc <ycakmakc@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 16:32:22 by alozpola          #+#    #+#             */
-/*   Updated: 2026/08/06 21:46:28 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/13 20:13:29 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,6 @@ int			parse_file(char *file, t_data *data);
 int			normalize_map(t_data *data);
 int			check_chars(t_data *data);
 int			validate_map(t_data *data);
-
-/*int		 ft_strlen(const char *s);
-void		*ft_memset(void *s, int c, size_t n);
-int			ft_strncmp(const char *s1, const char *s2, size_t n);
-char		*ft_strdup(const char *s);
-char		*ft_substr(char const *s, int start, int len);
-char		*ft_strchr(const char *s, int c);
-int	ft_isdigit(int c);*/
 
 char		*get_next_line(int fd);
 

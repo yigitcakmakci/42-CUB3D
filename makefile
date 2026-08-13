@@ -6,6 +6,7 @@ CFLAGS      = -Wall -Wextra -Werror -D_GNU_SOURCE
 SRC_DIR     = src
 MLX_DIR     = include/minilibx-linux
 LIBFT_DIR   = include/libft
+HEADERS_DIR = include
 
 SRCS        = $(SRC_DIR)/main.c \
 			  $(SRC_DIR)/render.c \
@@ -16,11 +17,13 @@ SRCS        = $(SRC_DIR)/main.c \
               $(SRC_DIR)/n5.c \
               $(SRC_DIR)/zget_next_line.c \
 			  $(SRC_DIR)/free_game.c \
+			  $(SRC_DIR)/dda.c \
 			  $(SRC_DIR)/texture.c \
+			  $(SRC_DIR)/draw_map.c \
               $(wildcard $(LIBFT_DIR)/*.c)
 OBJS        = $(SRCS:.c=.o)
 
-INCLUDES    = -I $(SRC_DIR) -I $(MLX_DIR) -I $(LIBFT_DIR)
+INCLUDES    = -I $(SRC_DIR) -I $(MLX_DIR) -I $(LIBFT_DIR) -I $(HEADERS_DIR)
 
 MLX_FLAGS   = -L $(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 

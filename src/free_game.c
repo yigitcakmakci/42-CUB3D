@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycakmakc <ycakmakc@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 16:32:22 by alozpola          #+#    #+#             */
-/*   Updated: 2026/08/06 21:46:51 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/13 20:40:06 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,12 @@ void	free_conf(t_configuration *conf)
 
 void	free_texture(t_texture *texture, void *mlx)
 {
+	int	i;
+
 	if (!texture)
 		return ;
-	for (size_t i = 0; i < 4; i++)
+	i = 0;
+	while (i < 4)
 	{
 		if (texture[i].img)
 		{
@@ -72,6 +75,7 @@ void	free_texture(t_texture *texture, void *mlx)
 		}
 		else
 			return ;
+		i++;
 	}
 	return ;
 }
