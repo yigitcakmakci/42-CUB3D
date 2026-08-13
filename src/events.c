@@ -6,7 +6,7 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/13 21:31:08 by ycakmakc          #+#    #+#             */
-/*   Updated: 2026/08/13 21:41:37 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/13 23:50:29 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ int	close_game(t_game *game)
 int	key_release(int keycode, t_game *game)
 {
 	if (keycode == KEY_W)
-		game->player.key_control.key_W = 0;
+		game->player.key_control.key_w = 0;
 	if (keycode == KEY_A)
-		game->player.key_control.key_A = 0;
+		game->player.key_control.key_a = 0;
 	if (keycode == KEY_S)
-		game->player.key_control.key_S = 0;
+		game->player.key_control.key_s = 0;
 	if (keycode == KEY_D)
-		game->player.key_control.key_D = 0;
+		game->player.key_control.key_d = 0;
 	if (keycode == KEY_LEFT)
 		game->player.key_control.key_left_arrow = 0;
 	if (keycode == KEY_RIGHT)
@@ -47,13 +47,13 @@ int	key_release(int keycode, t_game *game)
 int	key_press(int keycode, t_game *game)
 {
 	if (keycode == KEY_W)
-		game->player.key_control.key_W = 1;
+		game->player.key_control.key_w = 1;
 	if (keycode == KEY_A)
-		game->player.key_control.key_A = 1;
+		game->player.key_control.key_a = 1;
 	if (keycode == KEY_S)
-		game->player.key_control.key_S = 1;
+		game->player.key_control.key_s = 1;
 	if (keycode == KEY_D)
-		game->player.key_control.key_D = 1;
+		game->player.key_control.key_d = 1;
 	if (keycode == KEY_RIGHT)
 		game->player.key_control.key_right_arrow = 1;
 	if (keycode == KEY_LEFT)

@@ -6,7 +6,7 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 16:32:22 by alozpola          #+#    #+#             */
-/*   Updated: 2026/08/13 21:37:24 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/13 23:50:29 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ typedef struct s_texture
 
 typedef struct s_key_control
 {
-	int				key_W;
-	int				key_A;
-	int				key_S;
-	int				key_D;
+	int				key_w;
+	int				key_a;
+	int				key_s;
+	int				key_d;
 	int				key_right_arrow;
 	int				key_left_arrow;
 }					t_key_control;

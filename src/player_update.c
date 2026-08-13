@@ -6,7 +6,7 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/13 22:54:14 by ycakmakc          #+#    #+#             */
-/*   Updated: 2026/08/13 22:54:18 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/13 23:50:29 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 
 static void	update_movement(t_game *game, double speed)
 {
-	if (game->player.key_control.key_W)
+	if (game->player.key_control.key_w)
 		move_player(game, game->player.dir_x * speed, game->player.dir_y
 			* speed);
-	if (game->player.key_control.key_S)
+	if (game->player.key_control.key_s)
 		move_player(game, -game->player.dir_x * speed, -game->player.dir_y
 			* speed);
-	if (game->player.key_control.key_A)
+	if (game->player.key_control.key_a)
 		move_player(game, game->player.dir_y * speed, -game->player.dir_x
 			* speed);
-	if (game->player.key_control.key_D)
+	if (game->player.key_control.key_d)
 		move_player(game, -game->player.dir_y * speed, game->player.dir_x
 			* speed);
 }

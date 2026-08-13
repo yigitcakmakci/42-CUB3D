@@ -6,7 +6,7 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/13 17:36:08 by alozpola          #+#    #+#             */
-/*   Updated: 2026/08/13 23:27:33 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/13 23:52:43 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,3 @@ int	parse_color(char *str, int color[3])
 		return (1);
 	return (0);
 }
-
