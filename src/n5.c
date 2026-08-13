@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   n5.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ycakmakc <ycakmakc@student.42kocaeli.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/06 19:43:36 by ycakmakc          #+#    #+#             */
+/*   Updated: 2026/08/06 19:43:37 by ycakmakc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_parser.h"
 
 static int	check_player(t_data *data)
@@ -89,6 +101,7 @@ static int	validate_flood(t_data *data)
 		copy[i] = ft_strdup(data->map[i]);
 		if (!copy[i])
 		{
+			copy[i] = NULL;
 			free_map(copy);
 			return (1);
 		}

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   n1.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/28 16:32:22 by alozpola          #+#    #+#             */
+/*   Updated: 2026/08/13 21:06:31 by ycakmakc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_parser.h"
 
 int	skip_spaces(char *str, int i)
@@ -49,19 +61,4 @@ int	check_extension(char *file, char *ext)
 	if (len_file <= len_ext)
 		return (0);
 	return (!ft_strncmp(file + len_file - len_ext, ext, len_ext));
-}
-
-void	free_map(char **map)
-{
-	int	i;
-
-	if (!map)
-		return ;
-	i = 0;
-	while (map[i])
-	{
-		free(map[i]);
-		i++;
-	}
-	free(map);
 }

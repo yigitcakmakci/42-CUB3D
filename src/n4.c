@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   n4.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alozpola <alozpola@student.42kocaeli.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/28 16:32:22 by alozpola          #+#    #+#             */
+/*   Updated: 2025/06/19 22:55:26 by alozpola         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_parser.h"
 
 static int	process_line(char *line, t_data *data)
@@ -50,7 +62,7 @@ int	parse_file(char *file, t_data *data)
 		return (1);
 	}
 	close(fd);
-	if ((!data->no || !data->so || !data->we || !data->ea 
+	if ((!data->no || !data->so || !data->we || !data->ea
 			|| !data->floor_set || !data->ceiling_set) || validate_map(data))
 	{
 		free_data(data);

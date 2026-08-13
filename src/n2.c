@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   n2.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alozpola <alozpola@student.42kocaeli.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/28 16:32:22 by alozpola          #+#    #+#             */
+/*   Updated: 2025/06/19 22:55:26 by alozpola         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_parser.h"
 
 static char	*get_path(char *line)
@@ -89,30 +101,4 @@ int	parse_color(char *str, int color[3])
 	if (*str && *str != '\n' && *str != '\r')
 		return (1);
 	return (0);
-}
-void	free_data(t_data *data)
-{
-	if (!data)
-		return ;
-	if (data->no)
-		free(data->no);
-	if (data->so)
-		free(data->so);
-	if (data->we)
-		free(data->we);
-	if (data->ea)
-		free(data->ea);
-	if (data->map)
-		free_map(data->map);
-	data->no = NULL;
-	data->so = NULL;
-	data->we = NULL;
-	data->ea = NULL;
-	data->map = NULL;
-	data->map_width = 0;
-	data->map_height = 0;
-	data->floor_set = 0;
-	data->ceiling_set = 0;
-	data->map_started = 0;
-	data->map_ended = 0;
 }
