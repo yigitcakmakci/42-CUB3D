@@ -6,13 +6,15 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 19:43:58 by alozpola          #+#    #+#             */
-/*   Updated: 2026/08/13 20:16:27 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/13 22:53:59 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_parser.h"
 
-int BUFFER_SIZE = 100;
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 100
+#endif
 
 static char	*split(char *c)
 {
@@ -71,11 +73,12 @@ static char	*update(char *c)
 	free(c);
 	return (temp);
 }
+
 static char	*add(char *a, char *b)
 {
 	char	*c;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	j = ft_strlen(a);
 	c = malloc(j + ft_strlen(b) + 1);
@@ -107,26 +110,15 @@ static char	*execute(int fd, char *left_str)
 	if (!buff)
 		return (NULL);
 	if (!left_str)
-	{
 		left_str = ft_strdup("");
-		if (!left_str)
-		{
-			free(buff);
-			return (NULL);
-		}
-	}
 	rd_bytes = 1;
-	while (!ft_strchr(left_str, '\n') && rd_bytes > 0)
+	while (left_str && !ft_strchr(left_str, '\n') && rd_bytes > 0)
 	{
 		rd_bytes = read(fd, buff, BUFFER_SIZE);
 		if (rd_bytes < 0)
 		{
 			free(buff);
-			if (left_str)
-			{
-				free(left_str);
-				left_str = NULL;
-			}
+			free(left_str);
 			return (NULL);
 		}
 		buff[rd_bytes] = '\0';

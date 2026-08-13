@@ -18,8 +18,13 @@ SRCS        = $(SRC_DIR)/main.c \
               $(SRC_DIR)/zget_next_line.c \
 			  $(SRC_DIR)/free_game.c \
 			  $(SRC_DIR)/dda.c \
-			  $(SRC_DIR)/texture.c \
 			  $(SRC_DIR)/draw_map.c \
+			  $(SRC_DIR)/dda_init.c \
+			  $(SRC_DIR)/player.c \
+			  $(SRC_DIR)/events.c \
+			  $(SRC_DIR)/player_update.c \
+			  $(SRC_DIR)/texture_init.c \
+			  $(SRC_DIR)/texture_draw.c \
               $(wildcard $(LIBFT_DIR)/*.c)
 OBJS        = $(SRCS:.c=.o)
 

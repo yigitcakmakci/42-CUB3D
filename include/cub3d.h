@@ -6,7 +6,7 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 16:32:22 by alozpola          #+#    #+#             */
-/*   Updated: 2026/08/13 20:21:47 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/13 21:37:24 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,10 @@ typedef struct s_game
 
 int					init_texture(t_game *game);
 int					free_game(t_game *game);
+int					key_press(int keycode, t_game *game);
+int					key_release(int keycode, t_game *game);
+void				move_player(t_game *game, double move_x, double move_y);
+void				init_player_from_data(t_game *game);
+int					close_game(t_game *game);
 
 #endif

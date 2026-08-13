@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/13 20:34:20 by ycakmakc          #+#    #+#             */
-/*   Updated: 2026/08/13 21:03:43 by ycakmakc         ###   ########.fr       */
+/*   Created: 2026/08/13 21:19:10 by ycakmakc          #+#    #+#             */
+/*   Updated: 2026/08/13 21:23:22 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,34 +15,29 @@
 #include "cub3d_render.h"
 #include <math.h>
 
-void	init_dda(t_game *game, t_ray *ray, double *side_dist, int *step)
+static int	is_wall_hit(t_game *game, t_ray *ray)
 {
-	double	delta_x;
-	double	delta_y;
+	if (ray->map_x < 0 || ray->map_x >= game->data.map_width || ray->map_y < 0
+		|| ray->map_y >= game->data.map_height)
+		return (1);
+	if (game->data.map[ray->map_y][ray->map_x] == '1')
+		return (1);
+	return (0);
+}
 
-	ray->map_x = (int)game->player.pos_x;
-	ray->map_y = (int)game->player.pos_y;
-	delta_x = fabs(1.0 / ray->dir_x);
-	delta_y = fabs(1.0 / ray->dir_y);
-	if (ray->dir_x < 0)
+static void	update_step(t_ray *ray, double *side_dist, double *delta, int *step)
+{
+	if (side_dist[0] < side_dist[1])
 	{
-		step[0] = -1;
-		side_dist[0] = (game->player.pos_x - ray->map_x) * delta_x;
+		side_dist[0] += delta[0];
+		ray->map_x += step[0];
+		ray->side = 0;
 	}
 	else
 	{
-		step[0] = 1;
-		side_dist[0] = (ray->map_x + 1.0 - game->player.pos_x) * delta_x;
-	}
-	if (ray->dir_y < 0)
-	{
-		step[1] = -1;
-		side_dist[1] = (game->player.pos_y - ray->map_y) * delta_y;
-	}
-	else
-	{
-		step[1] = 1;
-		side_dist[1] = (ray->map_y + 1.0 - game->player.pos_y) * delta_y;
+		side_dist[1] += delta[1];
+		ray->map_y += step[1];
+		ray->side = 1;
 	}
 }
 
@@ -57,22 +52,8 @@ void	run_dda(t_game *game, t_ray *ray)
 	delta[1] = fabs(1.0 / ray->dir_y);
 	while (1)
 	{
-		if (side_dist[0] < side_dist[1])
-		{
-			side_dist[0] += delta[0];
-			ray->map_x += step[0];
-			ray->side = 0;
-		}
-		else
-		{
-			side_dist[1] += delta[1];
-			ray->map_y += step[1];
-			ray->side = 1;
-		}
-		if (ray->map_x < 0 || ray->map_x >= game->data.map_width
-			|| ray->map_y < 0 || ray->map_y >= game->data.map_height)
-			break ;
-		if (game->data.map[ray->map_y][ray->map_x] == '1')
+		update_step(ray, side_dist, delta, step);
+		if (is_wall_hit(game, ray))
 			break ;
 	}
 	if (ray->side == 0)

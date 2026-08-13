@@ -13,7 +13,7 @@ void	draw_map_cells(t_game *game, int start_x, int start_y, int tile);
 void	draw_map(t_game *game);
 void	update_player(t_game *game);
 void	draw_column(t_game *game, int x, t_ray *ray);
-void	draw_rect(t_game *game, int x, int y, int w, int h, int color);
+void	draw_rect(t_game *game, t_rect rect);
 void	update_player(t_game *game);
 
 #endif
