@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   n1.c                                               :+:      :+:    :+:   */
+/*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alozpola <alozpola@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,55 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_parser.h"
+#include "cub3d.h"
+#include <stdio.h>
 
-int	skip_spaces(char *str, int i)
+int init_texture(t_game *game)
 {
-	while (str[i] == ' ' || str[i] == '\t')
-		i++;
-	return (i);
-}
-
-int	is_empty_line(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
+	char *xpm_files[4];
+	xpm_files[0] = game->data.no;
+	xpm_files[1] = game->data.so;
+	xpm_files[2] = game->data.we;
+	xpm_files[3] = game->data.ea;
+	for (size_t i = 0; i < 4; i++)
 	{
-		if (line[i] != ' ' && line[i] != '\t'
-			&& line[i] != '\n' && line[i] != '\r')
+		printf("IMHERE\n");
+		if((game->texture[i].img = mlx_xpm_file_to_image(game->conf.mlx ,xpm_files[i], &game->texture[i].width, &game->texture[i].height)) == 0)
+		{
+			printf("TEXTURE IMG NOT CREATED\n");
 			return (0);
-		i++;
+		}
+		if((game->texture[i].addr = mlx_get_data_addr(game->texture[i].img, &game->texture[i].bpp, &game->texture[i].line_len, &game->texture[i].endian)) == 0)
+		{
+			printf("TEXTURE IMG NOT CREATED\n");
+			return (0);
+		}
 	}
 	return (1);
-}
-
-int	is_map_line(char *line)
-{
-	int	i;
-
-	i = 0;
-	i = skip_spaces(line, i);
-	if (!line[i] || line[i] == '\n')
-		return (0);
-	while (line[i] && line[i] != '\n')
-	{
-		if (!ft_strchr(" 01NSEW", line[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-int	check_extension(char *file, char *ext)
-{
-	int	len_file;
-	int	len_ext;
-
-	len_file = ft_strlen(file);
-	len_ext = ft_strlen(ext);
-	if (len_file <= len_ext)
-		return (0);
-	return (!ft_strncmp(file + len_file - len_ext, ext, len_ext));
 }

@@ -1,10 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_game.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ycakmakc <ycakmakc@student.42kocaeli.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/28 16:32:22 by alozpola          #+#    #+#             */
+/*   Updated: 2026/08/06 21:46:51 by ycakmakc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 #include "cub3d_parser.h"
 #include "cub3d_raycasting.h"
-
-/* ************************************************************************** */
-/*                         PARSER (t_data) CLEANUP                            */
-/* ************************************************************************** */
 
 void	free_map(char **map)
 {
@@ -33,11 +41,6 @@ void	free_data(t_data *data)
 	ft_memset(data, 0, sizeof(t_data));
 }
 
-/* ************************************************************************** */
-/*                       MLX (t_configuration) CLEANUP                        */
-/* ************************************************************************** */
-
-/* addr img'in ic buffer'i oldugundan ayrica free edilmez */
 void	free_conf(t_configuration *conf)
 {
 	if (!conf || !conf->mlx)
@@ -54,15 +57,31 @@ void	free_conf(t_configuration *conf)
 	conf->mlx = NULL;
 }
 
-/* ************************************************************************** */
-/*                            FULL GAME CLEANUP                               */
-/* ************************************************************************** */
+void	free_texture(t_texture *texture, void *mlx)
+{
+	if (!texture)
+		return ;
+	for (size_t i = 0; i < 4; i++)
+	{
+		if (texture[i].img)
+		{
+			if (texture[i].img)
+				mlx_destroy_image(mlx, texture[i].img);
+			texture[i].img = NULL;
+			texture[i].addr = NULL;
+		}
+		else
+			return ;
+	}
+	return ;
+}
 
 int	free_game(t_game *game)
 {
 	if (!game)
 		return (0);
 	free_data(&game->data);
+	free_texture(game->texture, game->conf.mlx);
 	free_conf(&game->conf);
 	return (0);
 }
