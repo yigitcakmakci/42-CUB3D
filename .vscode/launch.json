@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/sgoinfre/ycakmakc/42-CUB3D/include",
-      "program": "/sgoinfre/ycakmakc/42-CUB3D/include/build/Debug/outDebug",
+      "cwd": "/home/ycakmakc/42_School/42-CUB3D/src",
+      "program": "/home/ycakmakc/42_School/42-CUB3D/src/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

@@ -6,11 +6,15 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 19:43:58 by alozpola          #+#    #+#             */
-/*   Updated: 2026/08/13 23:22:07 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/13 23:26:30 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_parser.h"
+
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 100
+#endif
 
 static char	*split(char *c)
 {
@@ -97,8 +101,9 @@ static char	*add(char *a, char *b)
 	return (c);
 }
 
-static char	*read_buffer(int fd, char *left_str, char *buff)
+static char	*execute(int fd, char *left_str)
 {
+	char	*buff;
 	ssize_t	rd_bytes;
 
 	buff = malloc(BUFFER_SIZE + 1);
@@ -119,31 +124,18 @@ static char	*read_buffer(int fd, char *left_str, char *buff)
 		buff[rd_bytes] = '\0';
 		left_str = add(left_str, buff);
 	}
+	free(buff);
 	return (left_str);
 }
 
 char	*get_next_line(int fd)
 {
 	char		*line;
-	char		*buff;
 	static char	*left_str = NULL;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buff = malloc(BUFFER_SIZE + 1);
-	if (!buff)
-		return (NULL);
-	if (!left_str)
-	{
-		left_str = ft_strdup("");
-		if (!left_str)
-		{
-			free(buff);
-			return (NULL);
-		}
-	}
-	left_str = read_buffer(fd, left_str, buff);
-	free(buff);
+	left_str = execute(fd, left_str);
 	if (!left_str)
 		return (NULL);
 	line = split(left_str);
