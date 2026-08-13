@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   n3.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alozpola <alozpola@student.42kocaeli.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/13 17:35:41 by alozpola          #+#    #+#             */
+/*   Updated: 2026/08/13 17:35:42 by alozpola         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_parser.h"
 
 int	ft_isspace(int c)
@@ -35,7 +47,6 @@ int	parse_config(char *line, t_data *data)
 	}
 	return (1);
 }
-
 
 static char	*copy_map_line(char *line)
 {

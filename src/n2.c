@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   n2.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alozpola <alozpola@student.42kocaeli.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/13 17:36:08 by alozpola          #+#    #+#             */
+/*   Updated: 2026/08/13 17:36:09 by alozpola         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_parser.h"
 
 static char	*get_path(char *line)
@@ -90,6 +102,7 @@ int	parse_color(char *str, int color[3])
 		return (1);
 	return (0);
 }
+
 void	free_data(t_data *data)
 {
 	if (!data)

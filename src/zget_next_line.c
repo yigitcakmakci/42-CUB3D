@@ -6,13 +6,11 @@
 /*   By: alozpola <alozpola@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 19:43:58 by alozpola          #+#    #+#             */
-/*   Updated: 2026/07/28 23:10:03 by alozpola         ###   ########.fr       */
+/*   Updated: 2026/08/13 18:03:56 by alozpola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_parser.h"
-
-int BUFFER_SIZE = 100;
 
 static char	*split(char *c)
 {
@@ -71,11 +69,12 @@ static char	*update(char *c)
 	free(c);
 	return (temp);
 }
+
 static char	*add(char *a, char *b)
 {
 	char	*c;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	j = ft_strlen(a);
 	c = malloc(j + ft_strlen(b) + 1);
@@ -98,53 +97,47 @@ static char	*add(char *a, char *b)
 	return (c);
 }
 
-static char	*execute(int fd, char *left_str)
+static char	*read_buffer(int fd, char *left_str, char *buff)
 {
-	char	*buff;
 	ssize_t	rd_bytes;
 
-
-	buff = malloc(BUFFER_SIZE + 1);
-	if (!buff)
-		return (NULL);
-	if (!left_str)
-    {
-        left_str = ft_strdup("");
-        if (!left_str)
-        {
-            free(buff);
-            return (NULL);
-        }
-    }
 	rd_bytes = 1;
 	while (!ft_strchr(left_str, '\n') && rd_bytes > 0)
 	{
 		rd_bytes = read(fd, buff, BUFFER_SIZE);
 		if (rd_bytes < 0)
 		{
-			free(buff);
-			if (left_str)
-			{
-				free(left_str);
-				left_str = NULL;
-			}
+			free(left_str);
 			return (NULL);
 		}
 		buff[rd_bytes] = '\0';
 		left_str = add(left_str, buff);
 	}
-	free(buff);
 	return (left_str);
 }
 
 char	*get_next_line(int fd)
 {
 	char		*line;
+	char		*buff;
 	static char	*left_str = NULL;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	left_str = execute(fd, left_str);
+	buff = malloc(BUFFER_SIZE + 1);
+	if (!buff)
+		return (NULL);
+	if (!left_str)
+	{
+		left_str = ft_strdup("");
+		if (!left_str)
+		{
+			free(buff);
+			return (NULL);
+		}
+	}
+	left_str = read_buffer(fd, left_str, buff);
+	free(buff);
 	if (!left_str)
 		return (NULL);
 	line = split(left_str);
