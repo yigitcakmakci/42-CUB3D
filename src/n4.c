@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   n4.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alozpola <alozpola@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/28 16:32:22 by alozpola          #+#    #+#             */
-/*   Updated: 2025/06/19 22:55:26 by alozpola         ###   ########.fr       */
+/*   Created: 2026/08/13 17:35:09 by alozpola          #+#    #+#             */
+/*   Updated: 2026/08/13 23:22:07 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

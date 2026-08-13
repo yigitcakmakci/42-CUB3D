@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   n5.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycakmakc <ycakmakc@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/06 19:43:36 by ycakmakc          #+#    #+#             */
-/*   Updated: 2026/08/06 19:43:37 by ycakmakc         ###   ########.fr       */
+/*   Created: 2026/08/13 17:40:20 by alozpola          #+#    #+#             */
+/*   Updated: 2026/08/13 23:22:07 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
