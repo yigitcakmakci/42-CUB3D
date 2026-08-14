@@ -84,7 +84,6 @@ int	render_frame(t_game *game)
 	update_player(game);
 	draw_background(game);
 	draw_walls(game);
-	draw_map(game);
 	mlx_put_image_to_window(game->conf.mlx, game->conf.win, game->conf.img, 0,
 		0);
 	return (1);
