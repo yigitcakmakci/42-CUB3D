@@ -18,7 +18,6 @@ SRCS        = $(SRC_DIR)/main.c \
               $(SRC_DIR)/zget_next_line.c \
 			  $(SRC_DIR)/free_game.c \
 			  $(SRC_DIR)/dda.c \
-			  $(SRC_DIR)/draw_map.c \
 			  $(SRC_DIR)/dda_init.c \
 			  $(SRC_DIR)/player.c \
 			  $(SRC_DIR)/events.c \
