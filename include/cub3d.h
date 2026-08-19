@@ -6,7 +6,7 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 16:32:22 by alozpola          #+#    #+#             */
-/*   Updated: 2026/08/19 20:53:18 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/19 21:50:15 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ int					file_opener(char *file, t_data *data);
 int					normalize_map(t_data *data);
 int					chars_checker(t_data *data);
 int					validate_map(t_data *data);
+int					validate_flood(t_data *data);
 
 char				*get_next_line(int fd);
 

@@ -6,7 +6,7 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/13 17:40:20 by alozpola          #+#    #+#             */
-/*   Updated: 2026/08/19 21:36:01 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/19 21:52:48 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static int	flood(t_data *data, char **map, int x, int y)
 	return (0);
 }
 
-static int	validate_flood(t_data *data)
+int	validate_flood(t_data *data)
 {
 	char	**copy;
 	int		ret;
