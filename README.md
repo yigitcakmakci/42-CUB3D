@@ -1,47 +1,127 @@
-# 42-CUB3D - A Raycasting Engine
+*This project has been created as part of the 42 curriculum by ycakmakci, alozpola.*
 
-## About the Project
-cub3D is a 42 School project that introduces us to the world of raycasting. Inspired by the classic Wolfenstein 3D, the goal is to create a dynamic 3D graphical representation of a maze using a 2D map. This project is a deep dive into mathematics (vectors, trigonometry), algorithmic logic (Digital Differential Analysis - DDA), and window/graphics management using the MiniLibX library. As developers who prefer understanding the core mechanics over using pre-built engines or copying pre-made solutions, we are building this entirely from scratch in C to fully grasp how a basic 3D engine functions under the hood.
+# Description
 
-## Development Plan & Methodology
-Since this is a two-person project, we have structured our development pipeline to maximize parallel work. The architecture is inherently split into two distinct domains: the **Parser (Data Processing)** and the **Raycaster (3D Graphics Engine)**.
+**cub3D** is a graphical project from the 42 curriculum inspired by the classic game **Wolfenstein 3D**. The main goal of the project is to create a simple 3D game engine using the **raycasting** technique and the **MiniLibX** graphical library.
 
-*   **Phase 1** focuses on scaffolding and creating a temporary hardcoded map to decouple our dependencies immediately.
-*   **Phase 2** allows us to work completely independently: one handles the strict `.cub` file parsing and memory management, while the other builds the DDA algorithm and rendering logic.
-*   **Phase 3** is the integration phase, where the dynamic parser feeds into the rendering engine, followed by texturing, movement, and collision detection.
+The program reads a `.cub` configuration file containing the textures, floor and ceiling colors, and the game map. The map is parsed and validated before the game starts. During execution, the player can move around the map and look at the environment from a first-person perspective.
 
----
+The project provides an introduction to several important programming concepts, including:
 
-## 📋 Task List (Work Breakdown Structure)
+* Raycasting and basic 3D rendering
+* 2D coordinate systems and player movement
+* Texture mapping
+* Keyboard and window event handling
+* File parsing and input validation
+* Dynamic memory management
+* Error handling and resource cleanup
+* Working with the MiniLibX graphical library
 
-### Phase 1: Foundation & Decoupling (Joint Effort)
-*   **Task 1: Project Skeleton & Makefile**
-    *   *Description:* Setup directory structure (src, inc, textures), include libft/minilibx, and write compilation rules.
-*   **Task 2: MLX Testing with Hardcoded Map**
-    *   *Description:* Embed a dummy map (e.g., `int map[10][10]`) into the code.
-    *   *Importance:* This crucial step allows the Raycaster development to start immediately without waiting for the Parser to be finished.
+# Instructions
 
-### Phase 2: Independent Development
-#### Developer A: Parsing & Validation
-*   **Task 3: `.cub` File Reading & Extraction**
-    *   *Description:* Parse the file line-by-line to extract NO, SO, WE, EA texture paths and Floor/Ceiling (F/C) RGB colors.
-*   **Task 4: Map Matrix Generation**
-    *   *Description:* Extract the actual map layout (0, 1, N, S, etc.) into a 2D array or suitable data structure.
-*   **Task 5: Map Validity Check**
-    *   *Description:* Ensure the map is completely closed/surrounded by walls (1). Check for invalid characters, multiple spawn points, and empty spaces using a Flood-fill algorithm.
+## Compilation
 
-#### Developer B: Raycasting & MLX Graphics
-*   **Task 6: DDA (Digital Differential Analysis) Implementation**
-    *   *Description:* Write the vector mathematics to shoot rays from the player's perspective until they hit a wall.
-*   **Task 7: 3D Projection & Wall Strip Rendering**
-    *   *Description:* Calculate the distance to the wall (applying Cosine correction to fix the Fisheye effect) and determine the height of the vertical line to draw on the screen.
-*   **Task 8: Image Buffer Optimization**
-    *   *Description:* Avoid `mlx_pixel_put`. Create a single MLX image per frame and write pixels directly to its memory buffer array to prevent severe FPS drops.
+The project can be compiled using the provided `Makefile`:
 
-### Phase 3: Integration & Polish (Joint Effort)
-*   **Task 9: Parser & Raycaster Integration**
-    *   *Description:* Replace the hardcoded map with the dynamic map parsed from the `.cub` file.
-*   **Task 10: Wall Texturing**
-    *   *Description:* Read XPM/PNG files using MLX and map the exact pixel column of the texture to the screen based on the ray's wall hit coordinate (X-axis).
-*   **Task 11: Movement, Collision, & Event Hooks**
-    *   *Description:* Implement WASD movement and camera rotation. Check the map matrix before moving to prevent walking through walls.
+```bash
+make
+```
+
+This creates the `cub3D` executable.
+
+To remove object files:
+
+```bash
+make clean
+```
+
+To remove object files and the executable:
+
+```bash
+make fclean
+```
+
+To completely recompile the project:
+
+```bash
+make re
+```
+
+## Execution
+
+Run the program by providing a valid `.cub` configuration file:
+
+```bash
+./cub3D maps/map.cub
+```
+
+The configuration file contains the paths to the wall textures, the floor and ceiling colors, and the map layout.
+
+Example:
+
+```text
+NO ./textures/north.xpm
+SO ./textures/south.xpm
+WE ./textures/west.xpm
+EA ./textures/east.xpm
+
+F 50,50,50
+C 135,206,235
+
+111111
+100001
+10N001
+100001
+111111
+```
+
+The map must contain valid characters and be completely surrounded by walls. It must also contain exactly one player starting position.
+
+During the game, the player can move around the map using the keyboard and close the window using the appropriate exit controls.
+
+# Controls
+
+| Key     | Action        |
+| ------- | ------------- |
+| `W`   | Move forward  |
+| `S`   | Move backward |
+| `A`   | Move left     |
+| `D`   | Move right    |
+| `←`  | Rotate left   |
+| `→`  | Rotate right  |
+| `ESC` | Exit the game |
+
+# Technical Overview
+
+The rendering system uses **raycasting** to determine which parts of the map are visible from the player's position.
+
+For every vertical column of the window, a ray is projected from the player's position into the map. The distance to the first wall hit by the ray is calculated and used to determine the height of the corresponding wall column on the screen. Textures are then applied according to the wall that was hit.
+
+The map parser is responsible for reading the `.cub` file, validating its contents, loading the required textures, converting the map into an internal representation, and checking that the map is properly enclosed by walls.
+
+Memory allocation and error handling are also important parts of the project. Resources such as textures, images, maps, and other dynamically allocated data must be properly released when the program exits or encounters an error.
+
+# Resources
+
+The following resources were used to understand the concepts and technologies involved in the project:
+
+* [42 cub3D Subject](https://cdn.intra.42.fr/pdf/pdf/960/cub3d.en.pdf)
+  Official project subject and requirements.
+* [MiniLibX Documentation](https://harm-smits.github.io/42docs/libs/minilibx)
+  Documentation and examples for the MiniLibX library.
+* `man` pages and standard C documentation were also consulted for system calls, memory management, file handling, and other C functions used throughout the project.
+
+## AI Usage
+
+AI tools were used as a **learning and development aid** during the project.
+
+AI assistance was mainly used for:
+
+* Understanding raycasting concepts and related mathematics
+* Discussing possible approaches to map parsing and validation
+* Debugging compiler, linker, and runtime errors
+* Reviewing code structure and identifying potential problems
+* Discussing memory management and error-handling strategies
+* Improving the readability and naming of functions and variables
+
+AI-generated suggestions were used as guidance rather than as a replacement for understanding the implementation. The project's final code, architecture, integration, testing, and implementation decisions were made by the project author.
