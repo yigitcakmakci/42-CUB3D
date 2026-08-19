@@ -39,7 +39,7 @@ int	map_line_checker(char *line)
 	int	i;
 
 	i = 0;
-	i = skip_spaces(line, i);
+	i = skip_whitespace(line, i);
 	if (!line[i] || line[i] == '\n')
 		return (0);
 	while (line[i] && line[i] != '\n')
