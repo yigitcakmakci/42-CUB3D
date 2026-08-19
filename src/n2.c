@@ -19,7 +19,7 @@ static char	*get_path(char *line)
 	char	*path;
 
 	i = 2;
-	i = skip_spaces(line, i);
+	i = skip_whitespace(line, i);
 	start = i;
 	while (line[i] && line[i] != '\n')
 		i++;
@@ -42,7 +42,7 @@ int	texture_parser(char *line, char **dst)
 		free(path);
 		return (1);
 	}
-	if (!check_extension(path, ".xpm") && !check_extension(path, ".XPM"))
+	if (!extension_checker(path, ".xpm") && !extension_checker(path, ".XPM"))
 	{
 		free(path);
 		return (1);
@@ -62,7 +62,7 @@ static int	number_parser(char **str, int *value)
 {
 	long	n;
 
-	*str += skip_spaces(*str, 0);
+	*str += skip_whitespace(*str, 0);
 	if (!ft_isdigit(**str))
 		return (1);
 	n = 0;
@@ -76,7 +76,7 @@ static int	number_parser(char **str, int *value)
 	if (n < 0 || n > 255)
 		return (1);
 	*value = n;
-	*str += skip_spaces(*str, 0);
+	*str += skip_whitespace(*str, 0);
 	return (0);
 }
 
@@ -97,7 +97,7 @@ int	color_parser(char *str, int color[3])
 		}
 		i++;
 	}
-	str += skip_spaces(str, 0);
+	str += skip_whitespace(str, 0);
 	if (*str && *str != '\n' && *str != '\r')
 		return (1);
 	return (0);
