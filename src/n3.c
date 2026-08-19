@@ -21,26 +21,26 @@ int	ft_isspace(int c)
 	return (0);
 }
 
-int	parse_config(char *line, t_data *data)
+int	main_parser(char *line, t_data *data)
 {
 	if (!ft_strncmp(line, "NO", 2) && ft_isspace(line[2]))
-		return (parse_texture(line, &data->no));
+		return (texture_parser(line, &data->no));
 	if (!ft_strncmp(line, "SO", 2) && ft_isspace(line[2]))
-		return (parse_texture(line, &data->so));
+		return (texture_parser(line, &data->so));
 	if (!ft_strncmp(line, "WE", 2) && ft_isspace(line[2]))
-		return (parse_texture(line, &data->we));
+		return (texture_parser(line, &data->we));
 	if (!ft_strncmp(line, "EA", 2) && ft_isspace(line[2]))
-		return (parse_texture(line, &data->ea));
+		return (texture_parser(line, &data->ea));
 	if (line[0] == 'F' && ft_isspace(line[1]))
 	{
-		if (data->floor_set || parse_color(line + 1, data->floor))
+		if (data->floor_set || color_parser(line + 1, data->floor))
 			return (1);
 		data->floor_set = 1;
 		return (0);
 	}
 	if (line[0] == 'C' && ft_isspace(line[1]))
 	{
-		if (data->ceiling_set || parse_color(line + 1, data->ceiling))
+		if (data->ceiling_set || color_parser(line + 1, data->ceiling))
 			return (1);
 		data->ceiling_set = 1;
 		return (0);
@@ -86,15 +86,15 @@ static int	add_map_line(t_data *data, char *line)
 	return (0);
 }
 
-int	parse_map(char *line, t_data *data)
+int	map_parser(char *line, t_data *data)
 {
-	if (is_empty_line(line))
+	if (empty_line_checker(line))
 	{
 		if (data->map_started)
 			data->map_ended = 1;
 		return (0);
 	}
-	if (!is_map_line(line))
+	if (!map_line_checker(line))
 		return (1);
 	if (data->map_ended)
 		return (1);
