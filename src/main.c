@@ -108,7 +108,7 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	ft_memset(&game, 0, sizeof(t_game));
-	if (parse_file(argv[1], &game.data))
+	if (file_opener(argv[1], &game.data))
 	{
 		printf("Error\n");
 		return (1);
