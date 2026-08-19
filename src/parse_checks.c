@@ -6,7 +6,7 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/13 17:36:19 by alozpola          #+#    #+#             */
-/*   Updated: 2026/08/19 20:33:51 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/19 21:35:48 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,17 @@ int	extension_checker(char *file, char *ext)
 	if (len_file <= len_ext)
 		return (0);
 	return (!ft_strncmp(file + len_file - len_ext, ext, len_ext));
+}
+
+int	validate_map(t_data *data)
+{
+	if (!data->map || data->map_height == 0)
+		return (1);
+	if (normalize_map(data))
+		return (1);
+	if (chars_checker(data))
+		return (1);
+	if (validate_flood(data))
+		return (1);
+	return (0);
 }

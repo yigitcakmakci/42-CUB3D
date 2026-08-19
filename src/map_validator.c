@@ -6,7 +6,7 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/13 17:40:20 by alozpola          #+#    #+#             */
-/*   Updated: 2026/08/19 20:36:04 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/19 21:36:01 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,17 +112,4 @@ static int	validate_flood(t_data *data)
 	ret = flood(data, copy, data->player_x, data->player_y);
 	free_map(copy);
 	return (ret);
-}
-
-int	validate_map(t_data *data)
-{
-	if (!data->map || data->map_height == 0)
-		return (1);
-	if (normalize_map(data))
-		return (1);
-	if (chars_checker(data))
-		return (1);
-	if (validate_flood(data))
-		return (1);
-	return (0);
 }
