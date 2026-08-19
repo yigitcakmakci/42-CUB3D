@@ -12,14 +12,14 @@
 
 #include "cub3d_parser.h"
 
-int	skip_spaces(char *str, int i)
+int	skip_whitespace(char *str, int i)
 {
 	while (str[i] == ' ' || str[i] == '\t')
 		i++;
 	return (i);
 }
 
-int	is_empty_line(char *line)
+int	empty_line_checker(char *line)
 {
 	int	i;
 
@@ -34,7 +34,7 @@ int	is_empty_line(char *line)
 	return (1);
 }
 
-int	is_map_line(char *line)
+int	map_line_checker(char *line)
 {
 	int	i;
 
@@ -51,7 +51,7 @@ int	is_map_line(char *line)
 	return (1);
 }
 
-int	check_extension(char *file, char *ext)
+int	extension_checker(char *file, char *ext)
 {
 	int	len_file;
 	int	len_ext;
