@@ -1,4 +1,5 @@
 NAME        = cub3D
+NAME_BONUS	= cub3D_bonus
 
 CC          = cc
 CFLAGS      = -Wall -Wextra -Werror -D_GNU_SOURCE
@@ -8,8 +9,7 @@ MLX_DIR     = include/minilibx-linux
 LIBFT_DIR   = include/libft
 HEADERS_DIR = include
 
-SRCS        = $(SRC_DIR)/main.c \
-			  $(SRC_DIR)/render.c \
+SRCS_COMMON = $(SRC_DIR)/main.c \
               $(SRC_DIR)/n1.c \
               $(SRC_DIR)/n2.c \
               $(SRC_DIR)/n3.c \
@@ -25,7 +25,14 @@ SRCS        = $(SRC_DIR)/main.c \
 			  $(SRC_DIR)/texture_init.c \
 			  $(SRC_DIR)/texture_draw.c \
               $(wildcard $(LIBFT_DIR)/*.c)
-OBJS        = $(SRCS:.c=.o)
+
+SRCS_MANDATORY = $(SRC_DIR)/render.c
+SRCS_BONUS = $(SRC_DIR)/render_bonus.c \
+			 $(SRC_DIR)/minimap_bonus.c
+
+OBJS_COMMON = $(SRCS_COMMON:.c=.o)
+OBJS_MANDATORY = $(SRCS_MANDATORY:.c=.o)
+OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
 INCLUDES    = -I $(SRC_DIR) -I $(MLX_DIR) -I $(LIBFT_DIR) -I $(HEADERS_DIR)
 
@@ -33,22 +40,24 @@ MLX_FLAGS   = -L $(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	@echo "Derleniyor: $(NAME)"
-	@$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) -o $(NAME)
-	@echo "Başarılı: $(NAME) hazır!"
+$(NAME): $(OBJS_COMMON) $(OBJS_MANDATORY)
+	@$(CC) $(CFLAGS) $(OBJS_COMMON) $(OBJS_MANDATORY) $(MLX_FLAGS) -o $(NAME)
+
+bonus: $(NAME_BONUS)
+
+$(NAME_BONUS): $(OBJS_COMMON) $(OBJS_BONUS)
+	@$(CC) $(CFLAGS) $(OBJS_COMMON) $(OBJS_BONUS) -o $(NAME_BONUS) $(MLX_FLAGS)
 
 %.o: %.c
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	@rm -f $(OBJS)
+	@rm -f $(OBJS_COMMON) $(OBJS_MANDATORY) $(OBJS_BONUS) 
 	@echo "Obje dosyaları (.o) temizlendi."
 
 fclean: clean
-	@rm -f $(NAME)
-	@echo "Çalıştırılabilir dosya ($(NAME)) silindi."
+	@rm -f $(NAME) $(NAME_BONUS)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus

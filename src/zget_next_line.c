@@ -6,15 +6,11 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 19:43:58 by alozpola          #+#    #+#             */
-/*   Updated: 2026/08/13 23:26:30 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/19 19:54:22 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_parser.h"
-
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 100
-#endif
 
 static char	*split(char *c)
 {
