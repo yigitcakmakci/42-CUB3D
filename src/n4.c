@@ -15,17 +15,17 @@
 static int	process_line(char *line, t_data *data)
 {
 	if (data->map_started)
-		return (parse_map(line, data));
-	if (is_empty_line(line))
+		return (map_parser(line, data));
+	if (empty_line_checker(line))
 		return (0);
-	if (is_map_line(line))
+	if (map_line_checker(line))
 	{
 		if (!data->no || !data->so || !data->we || !data->ea
 			|| !data->floor_set || !data->ceiling_set)
 			return (1);
-		return (parse_map(line, data));
+		return (map_parser(line, data));
 	}
-	return (parse_config(line, data));
+	return (main_parser(line, data));
 }
 
 static int	read_file(int fd, t_data *data)
@@ -46,11 +46,11 @@ static int	read_file(int fd, t_data *data)
 	return (0);
 }
 
-int	parse_file(char *file, t_data *data)
+int	file_opener(char *file, t_data *data)
 {
 	int	fd;
 
-	if (!check_extension(file, ".cub"))
+	if (!extension_checker(file, ".cub"))
 		return (1);
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
@@ -71,7 +71,7 @@ int	parse_file(char *file, t_data *data)
 	return (0);
 }
 
-static char	*expand_line(char *line, int width)
+static char	*expand_lines(char *line, int width)
 {
 	char	*new;
 	int		i;
@@ -114,7 +114,7 @@ int	normalize_map(t_data *data)
 	i = 0;
 	while (i < data->map_height)
 	{
-		new_line = expand_line(data->map[i], data->map_width);
+		new_line = expand_lines(data->map[i], data->map_width);
 		if (!new_line)
 			return (1);
 		free(data->map[i]);
