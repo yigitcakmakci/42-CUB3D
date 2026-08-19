@@ -41,7 +41,7 @@ static int	check_player(t_data *data)
 	return (count != 1);
 }
 
-int	check_chars(t_data *data)
+int	chars_checker(t_data *data)
 {
 	int		x;
 	int		y;
@@ -119,7 +119,7 @@ int	validate_map(t_data *data)
 		return (1);
 	if (normalize_map(data))
 		return (1);
-	if (check_chars(data))
+	if (chars_checker(data))
 		return (1);
 	if (validate_flood(data))
 		return (1);
