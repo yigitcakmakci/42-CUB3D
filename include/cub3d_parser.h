@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_parser.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
+/*   By: alozpola <alozpola@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 16:32:22 by alozpola          #+#    #+#             */
-/*   Updated: 2026/08/13 20:13:29 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/16 16:09:55 by alozpola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,20 @@ typedef struct s_data
 	char	player_dir;
 }			t_data;
 
-int			skip_spaces(char *str, int i);
-int			is_empty_line(char *line);
-int			is_map_line(char *line);
-int			check_extension(char *file, char *ext);
+int			skip_whitespace(char *str, int i);
+int			empty_line_checker(char *line);
+int			map_line_checker(char *line);
+int			extension_checker(char *file, char *ext);
 void		free_map(char **map);
-int			parse_texture(char *line, char **dst);
-int			parse_color(char *str, int color[3]);
+int			texture_parser(char *line, char **dst);
+int			color_parser(char *str, int color[3]);
 void		free_data(t_data *data);
 int			ft_isspace(int c);
-int			parse_config(char *line, t_data *data);
-int			parse_map(char *line, t_data *data);
-int			parse_file(char *file, t_data *data);
+int			main_parser(char *line, t_data *data);
+int			map_parser(char *line, t_data *data);
+int			file_opener(char *file, t_data *data);
 int			normalize_map(t_data *data);
-int			check_chars(t_data *data);
+int			chars_checker(t_data *data);
 int			validate_map(t_data *data);
 
 char		*get_next_line(int fd);
