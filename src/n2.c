@@ -29,7 +29,7 @@ static char	*get_path(char *line)
 	return (path);
 }
 
-int	parse_texture(char *line, char **dst)
+int	texture_parser(char *line, char **dst)
 {
 	char	*path;
 	int		fd;
@@ -58,7 +58,7 @@ int	parse_texture(char *line, char **dst)
 	return (0);
 }
 
-static int	parse_number(char **str, int *value)
+static int	number_parser(char **str, int *value)
 {
 	long	n;
 
@@ -80,14 +80,14 @@ static int	parse_number(char **str, int *value)
 	return (0);
 }
 
-int	parse_color(char *str, int color[3])
+int	color_parser(char *str, int color[3])
 {
 	int	i;
 
 	i = 0;
 	while (i < 3)
 	{
-		if (parse_number(&str, &color[i]))
+		if (number_parser(&str, &color[i]))
 			return (1);
 		if (i < 2)
 		{
