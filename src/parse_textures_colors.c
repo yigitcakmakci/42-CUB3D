@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   n2.c                                               :+:      :+:    :+:   */
+/*   parse_textures_colors.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/13 17:36:08 by alozpola          #+#    #+#             */
-/*   Updated: 2026/08/13 23:52:43 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/19 20:34:43 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_parser.h"
+#include "cub3d.h"
+#include "libft.h"
+#include "fcntl.h"
 
 static char	*get_path(char *line)
 {

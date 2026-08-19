@@ -6,13 +6,11 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/13 20:38:01 by ycakmakc          #+#    #+#             */
-/*   Updated: 2026/08/19 19:54:55 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/19 20:31:23 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "cub3d_raycasting.h"
-#include "cub3d_render.h"
 
 void	draw_map_cells(t_game *game, int start_x, int start_y, int tile)
 {

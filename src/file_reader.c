@@ -1,16 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   n4.c                                               :+:      :+:    :+:   */
+/*   file_reader.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/13 17:35:09 by alozpola          #+#    #+#             */
-/*   Updated: 2026/08/13 23:22:07 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/19 20:35:52 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_parser.h"
+#include "cub3d.h"
+#include "stdlib.h"
+#include "fcntl.h"
+#include "libft.h"
 
 static int	process_line(char *line, t_data *data)
 {

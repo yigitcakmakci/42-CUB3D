@@ -6,13 +6,11 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 16:32:22 by alozpola          #+#    #+#             */
-/*   Updated: 2026/08/13 22:39:01 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/19 20:31:58 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "cub3d_raycasting.h"
-#include "cub3d_render.h"
 #include <math.h>
 #include <unistd.h>
 

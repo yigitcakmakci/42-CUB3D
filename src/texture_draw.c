@@ -6,12 +6,11 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/13 22:54:28 by ycakmakc          #+#    #+#             */
-/*   Updated: 2026/08/13 22:54:31 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/19 20:32:02 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "cub3d_raycasting.h"
 #include <math.h>
 
 unsigned int	get_tex_color(t_texture *tex, int tex_x, int tex_y)

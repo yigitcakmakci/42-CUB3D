@@ -6,13 +6,12 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/13 21:36:51 by ycakmakc          #+#    #+#             */
-/*   Updated: 2026/08/13 22:56:55 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/19 20:33:10 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "cub3d_parser.h"
-#include "cub3d_raycasting.h"
+#include "libft.h"
 #include "mlx.h"
 #include <stdio.h>
 

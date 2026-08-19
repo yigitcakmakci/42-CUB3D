@@ -6,12 +6,11 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/13 21:22:08 by ycakmakc          #+#    #+#             */
-/*   Updated: 2026/08/13 21:22:34 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/19 20:30:26 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "cub3d_raycasting.h"
 #include <math.h>
 
 static void	init_step_x(t_game *game, t_ray *ray, double *side_dist, int *step)

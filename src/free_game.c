@@ -6,13 +6,13 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 16:32:22 by alozpola          #+#    #+#             */
-/*   Updated: 2026/08/13 20:40:06 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/19 20:37:12 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "cub3d_parser.h"
-#include "cub3d_raycasting.h"
+#include "stdlib.h"
+#include "libft.h"
 
 void	free_map(char **map)
 {

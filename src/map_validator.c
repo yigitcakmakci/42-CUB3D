@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   n5.c                                               :+:      :+:    :+:   */
+/*   map_validator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/13 17:40:20 by alozpola          #+#    #+#             */
-/*   Updated: 2026/08/13 23:22:07 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/19 20:36:04 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_parser.h"
+#include "cub3d.h"
+#include "libft.h"
 
 static int	check_player(t_data *data)
 {

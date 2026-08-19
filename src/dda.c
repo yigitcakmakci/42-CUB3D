@@ -6,13 +6,11 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/13 21:19:10 by ycakmakc          #+#    #+#             */
-/*   Updated: 2026/08/13 21:23:22 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/19 20:30:29 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "cub3d_raycasting.h"
-#include "cub3d_render.h"
 #include <math.h>
 
 static int	is_wall_hit(t_game *game, t_ray *ray)

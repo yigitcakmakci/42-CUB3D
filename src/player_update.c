@@ -6,12 +6,12 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/13 22:54:14 by ycakmakc          #+#    #+#             */
-/*   Updated: 2026/08/13 23:50:29 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/19 20:31:45 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
-#include <cub3d.h>
+#include "cub3d.h"
 
 static void	update_movement(t_game *game, double speed)
 {

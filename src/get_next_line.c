@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zget_next_line.c                                   :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 19:43:58 by alozpola          #+#    #+#             */
-/*   Updated: 2026/08/19 19:54:22 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/19 20:49:55 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_parser.h"
+#include "cub3d.h"
+#include "stdlib.h"
+#include "libft.h"
 
 static char	*split(char *c)
 {

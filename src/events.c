@@ -6,12 +6,12 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.com.t +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/13 21:31:08 by ycakmakc          #+#    #+#             */
-/*   Updated: 2026/08/13 23:50:29 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/08/19 20:37:29 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdlib.h>
+#include "stdlib.h"
 
 #define KEY_W 119
 #define KEY_A 97
