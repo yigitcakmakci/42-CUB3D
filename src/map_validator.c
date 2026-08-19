@@ -13,6 +13,14 @@
 #include "cub3d.h"
 #include "libft.h"
 
+static void	set_player(t_data *data, int x, int y)
+{
+	data->player_x = x;
+	data->player_y = y;
+	data->player_dir = data->map[y][x];
+	data->map[y][x] = '0';
+}
+
 static int	check_player(t_data *data)
 {
 	int	x;
@@ -30,16 +38,15 @@ static int	check_player(t_data *data)
 				|| data->map[y][x] == 'E' || data->map[y][x] == 'W')
 			{
 				count++;
-				data->player_x = x;
-				data->player_y = y;
-				data->player_dir = data->map[y][x];
-				data->map[y][x] = '0';
+				set_player(data, x, y);
 			}
 			x++;
 		}
 		y++;
 	}
-	return (count != 1);
+	if (count != 1)
+		return (1);
+	return (0);
 }
 
 int	chars_checker(t_data *data)
